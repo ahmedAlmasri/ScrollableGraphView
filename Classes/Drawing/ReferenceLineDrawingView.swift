@@ -9,7 +9,7 @@ internal class ReferenceLineDrawingView : UIView {
     // ##################
     
     private var labelMargin: CGFloat = 4
-    private var leftLabelInset: CGFloat = 10
+    private var leftLabelInset: CGFloat = 0
     private var rightLabelInset: CGFloat = 10
     
     // Store information about the ScrollableGraphView
