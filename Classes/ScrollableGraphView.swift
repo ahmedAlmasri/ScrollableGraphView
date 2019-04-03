@@ -159,7 +159,8 @@ import UIKit
         self.addReferenceLines(referenceLines: referenceLines)
     }
     
-    private func setup() {
+    
+    private func drawViews() {
         
         clipsToBounds = true
         isCurrentlySettingUp = true
@@ -182,8 +183,10 @@ import UIKit
         
         // Add the x-axis labels view.
         self.insertSubview(labelsView, aboveSubview: drawingView)
-        
-        // 2.
+    }
+    
+    private func setup() {
+        // 1.
         // Calculate the total size of the graph, need to know this for the scrollview.
         
         // Calculate the drawing frames
@@ -208,12 +211,12 @@ import UIKit
         // Set the scrollview offset.
         self.contentOffset.x = self.offsetWidth
         
-        // 3.
+        // 2.
         // Calculate the points that we will be able to see when the view loads.
         
         let initialActivePointsInterval = calculateActivePointsInterval()
         
-        // 4.
+        // 3.
         // Add the plots to the graph, we need these to calculate the range.
         
         while(queuedPlots.count > 0) {
@@ -222,7 +225,7 @@ import UIKit
             }
         }
         
-        // 5.
+        // 4.
         // Calculate the range for the points we can actually see.
         
         #if TARGET_INTERFACE_BUILDER
@@ -243,14 +246,14 @@ import UIKit
             self.range = (min: 0, max: rangeMax)
         }
         
-        // 6.
+        // 5.
         // Add the reference lines, can only add this once we know the range.
 
         if(referenceLines != nil) {
             addReferenceViewDrawingView()
         }
         
-        // 7.
+        // 6.
         // We're now done setting up, update the offsets and change the flag.
         
         updateOffsetWidths()
@@ -341,6 +344,7 @@ import UIKit
         
         if (isInitialSetup) {
             setup()
+            drawViews()
             
             if(shouldAnimateOnStartup) {
                 startAnimations(withStaggerValue: 0.15)
@@ -351,6 +355,7 @@ import UIKit
         }
             // Otherwise, the user is just scrolling and we just need to update everything.
         else {
+            setup()
             // Needs to update the viewportWidth and viewportHeight which is used to calculate which
             // points we can actually see.
             viewportWidth = self.frame.width
