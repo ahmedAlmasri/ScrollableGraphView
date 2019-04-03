@@ -35,7 +35,7 @@ open class Plot {
     private var previousTimestamp: CFTimeInterval = 0
     private var currentTimestamp: CFTimeInterval = 0
     
-    private var graphPoints = [GraphPoint]()
+    var graphPoints = [GraphPoint]()
     
     deinit {
         displayLink?.invalidate()
@@ -147,6 +147,7 @@ open class Plot {
     }
     
     internal func createPlotPoints(numberOfPoints: Int, range: (min: Double, max: Double)) {
+        graphPoints.removeAll()
         for i in 0 ..< numberOfPoints {
             
             let value = range.min

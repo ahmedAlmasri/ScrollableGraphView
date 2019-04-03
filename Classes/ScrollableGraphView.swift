@@ -461,6 +461,13 @@ import UIKit
     // Limitation: Can only be used when reloading the same number of data points!
     public func reload() {
         stopAnimations()
+        let numbuer = dataSource!.numberOfPoints()
+        for plot in self.plots {
+            if plot.graphPoints.count != numbuer {
+                plot.createPlotPoints(numberOfPoints: dataSource!.numberOfPoints(), range: range)
+            }
+        }
+        
         rangeDidChange()
         updateUI()
         updatePaths()
