@@ -343,8 +343,8 @@ import UIKit
         }
         
         if (isInitialSetup) {
-            setup()
             drawViews()
+            setup()
             
             if(shouldAnimateOnStartup) {
                 startAnimations(withStaggerValue: 0.15)
